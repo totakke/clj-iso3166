@@ -270,22 +270,22 @@
 (s/def ::country (s/keys :req-un [::name ::numeric ::alpha3 ::alpha2]))
 
 (def ^:private name-map
-  (->> iso3166-1-info
+  (->> countries
        (map #(vector (string/lower-case (:name %)) %))
        (into {})))
 
 (def ^:private numeric-map
-  (->> iso3166-1-info
+  (->> countries
        (map #(vector (:numeric %) %))
        (into {})))
 
 (def ^:private alpha3-map
-  (->> iso3166-1-info
+  (->> countries
        (map #(vector (:alpha3 %) %))
        (into {})))
 
 (def ^:private alpha2-map
-  (->> iso3166-1-info
+  (->> countries
        (map #(vector (:alpha2 %) %))
        (into {})))
 
