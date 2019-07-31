@@ -2,3 +2,4 @@ target/
 classes/
 .cpcache
 .nrepl-port
+cljs-test-runner-out/

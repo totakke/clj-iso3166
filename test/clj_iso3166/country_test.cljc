@@ -1,7 +1,7 @@
 (ns clj-iso3166.country-test
   (:require [clj-iso3166.country :as c]
             [clojure.spec.alpha :as s]
-            [clojure.test :refer :all]))
+            [clojure.test :refer [deftest is]]))
 
 (deftest name->country-test
   (is (s/valid? ::c/country (c/name->country "Japan")))
