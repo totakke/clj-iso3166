@@ -215,7 +215,7 @@
    {:name "El Salvador", :numeric 222, :alpha3 "SLV", :alpha2 "SV"}
    {:name "Sint Maarten (Dutch part)", :numeric 534, :alpha3 "SXM", :alpha2 "SX"}
    {:name "Syrian Arab Republic", :numeric 760, :alpha3 "SYR", :alpha2 "SY"}
-   {:name "Swaziland", :numeric 748, :alpha3 "SWZ", :alpha2 "SZ"}
+   {:name "Eswatini", :numeric 748, :alpha3 "SWZ", :alpha2 "SZ"}
    {:name "Turks and Caicos Islands", :numeric 796, :alpha3 "TCA", :alpha2 "TC"}
    {:name "Chad", :numeric 148, :alpha3 "TCD", :alpha2 "TD"}
    {:name "French Southern Territories", :numeric 260, :alpha3 "ATF", :alpha2 "TF"}
