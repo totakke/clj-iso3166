@@ -146,7 +146,7 @@
    {:name "Saint Martin (French part)", :numeric 663, :alpha3 "MAF", :alpha2 "MF"}
    {:name "Madagascar", :numeric 450, :alpha3 "MDG", :alpha2 "MG"}
    {:name "Marshall Islands", :numeric 584, :alpha3 "MHL", :alpha2 "MH"}
-   {:name "Macedonia, the former Yugoslav Republic of", :numeric 807, :alpha3 "MKD", :alpha2 "MK"}
+   {:name "North Macedonia", :numeric 807, :alpha3 "MKD", :alpha2 "MK"}
    {:name "Mali", :numeric 466, :alpha3 "MLI", :alpha2 "ML"}
    {:name "Myanmar", :numeric 104, :alpha3 "MMR", :alpha2 "MM"}
    {:name "Mongolia", :numeric 496, :alpha3 "MNG", :alpha2 "MN"}
