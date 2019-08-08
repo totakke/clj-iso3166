@@ -10,13 +10,13 @@ ISO 3166-1 country definitions for Clojure(Script)
 Clojure CLI/deps.edn:
 
 ```clojure
-net.totakke/clj-iso3166 {:mvn/version "0.1.0"}
+net.totakke/clj-iso3166 {:mvn/version "0.2.0"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[net.totakke/clj-iso3166 "0.1.0"]
+[net.totakke/clj-iso3166 "0.2.0"]
 ```
 
 ## Usage
@@ -65,4 +65,3 @@ c/countries
 Copyright © 2019 Toshiki Takeuchi
 
 Distributed under the MIT License.
-

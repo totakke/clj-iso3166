@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.totakke</groupId>
   <artifactId>clj-iso3166</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <name>clj-iso3166</name>
   <description>ISO 3166-1 country definitions for Clojure(Script)</description>
   <url>https://github.com/totakke/clj-iso3166</url>
