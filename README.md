@@ -5,9 +5,25 @@
 
 ISO 3166-1 country definitions for Clojure(Script)
 
+## Installation
+
+Clojure CLI/deps.edn:
+
+```clojure
+net.totakke/clj-iso3166 {:mvn/version "0.1.0"}
+```
+
+Leiningen/Boot:
+
+```clojure
+[net.totakke/clj-iso3166 "0.1.0"]
+```
+
 ## Usage
 
-```clj
+### Basics
+
+```clojure
 (require '[clj-iso3166.country :as c])
 
 c/countries
@@ -21,14 +37,27 @@ c/countries
 (c/name->country "Japan")
 ;;=> {:name "Japan", :numeric 392, :alpha3 "JPN", :alpha2 "JP"}
 
-(c/numeric->country 392)
-;;=> {:name "Japan", :numeric 392, :alpha3 "JPN", :alpha2 "JP"}
+(c/numeric->country 380)
+;;=> {:name "Italy", :numeric 380, :alpha3 "ITA", :alpha2 "IT"}
 
-(c/alpha3->country "JPN")
-;;=> {:name "Japan", :numeric 392, :alpha3 "JPN", :alpha2 "JP"}
+(c/alpha3->country "USA")
+;;=> {:name "United States", :numeric 840, :alpha3 "USA", :alpha2 "US"}
 
-(c/alpha2->country "JP")
-;;=> {:name "Japan", :numeric 392, :alpha3 "JPN", :alpha2 "JP"}
+(c/alpha2->country "EG")
+;;=> {:name "Egypt", :numeric 818, :alpha3 "EGY", :alpha2 "EG"}
+```
+
+### Spec
+
+```clojure
+(require '[clj-iso3166.country :as c]
+         '[clojure.spec.alpha :as s])
+
+(s/valid? ::c/alpha2 "JP")
+;;=> true
+
+(s/explain ::c/alpha3 "IT")
+;; "IT" - failed: (re-matches #"[A-Z]{3}" %) spec: :clj-iso3166.country/alpha3
 ```
 
 ## License
