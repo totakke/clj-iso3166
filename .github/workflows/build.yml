@@ -1,0 +1,22 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+    - name: Setup Clojure
+      uses: DeLaGuardo/setup-clojure@3.5
+      with:
+        cli: '1.10.3.986'
+    - name: Run tests
+      run: clojure -X:test
+    - name: Run cljs tests
+      run: clojure -M:test-cljs
