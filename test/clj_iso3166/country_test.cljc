@@ -3,6 +3,10 @@
             [clojure.spec.alpha :as s]
             [clojure.test :refer [deftest is]]))
 
+(deftest countries-test
+  (is (s/valid? (s/coll-of ::c/country :kind vector? :distinct true)
+                c/countries)))
+
 (deftest name->country-test
   (is (s/valid? ::c/country (c/name->country "Japan")))
   (is (s/valid? ::c/country (c/name->country "japan")))
