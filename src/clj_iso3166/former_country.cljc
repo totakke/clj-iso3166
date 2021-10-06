@@ -1,6 +1,7 @@
 (ns clj-iso3166.former-country
   "The formerly used country codes defined in ISO 3166-3."
-  (:require [clojure.spec.alpha :as s]
+  (:require [clj-iso3166.country :as c]
+            [clojure.spec.alpha :as s]
             [clojure.string :as string]))
 
 (def former-countries
@@ -204,3 +205,27 @@
 (s/fdef alpha4->former-country
   :args (s/cat :s (s/nilable string?))
   :ret  (s/nilable ::former-country))
+
+(def ^:private former-code-map
+  (->> former-countries
+       (map #(vector (:former-code %) %))
+       (into {})))
+
+(def ^:private current-code-map
+  (->> c/countries
+       (map #(vector (dissoc % :name) %))
+       (into {})))
+
+(defn migrate-country
+  "Migrates a former country to current countries."
+  [former-country]
+  {:pre [(s/valid? ::former-country former-country)]}
+  (flatten
+   (for [latter-code (:latter-codes former-country)]
+     (if-let [latter-country (former-code-map latter-code)]
+       (migrate-country latter-country)
+       (current-code-map latter-code)))))
+
+(s/fdef migrate-country
+  :args (s/cat :former-country ::former-country)
+  :ret  (s/+ ::c/country))
