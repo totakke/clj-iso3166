@@ -3,20 +3,20 @@
 [![Clojars Project](https://img.shields.io/clojars/v/net.totakke/clj-iso3166.svg)](https://clojars.org/net.totakke/clj-iso3166)
 [![build](https://github.com/totakke/clj-iso3166/actions/workflows/build.yml/badge.svg)](https://github.com/totakke/clj-iso3166/actions/workflows/build.yml)
 
-ISO 3166-1 country definitions for Clojure(Script)
+ISO 3166 country definitions for Clojure(Script)
 
 ## Installation
 
 Clojure CLI/deps.edn:
 
 ```clojure
-net.totakke/clj-iso3166 {:mvn/version "0.2.0"}
+net.totakke/clj-iso3166 {:mvn/version "0.3.0"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[net.totakke/clj-iso3166 "0.2.0"]
+[net.totakke/clj-iso3166 "0.3.0"]
 ```
 
 ## Usage
@@ -47,6 +47,25 @@ c/countries
 ;;=> {:name "Egypt", :numeric 818, :alpha3 "EGY", :alpha2 "EG"}
 ```
 
+### Former Countries
+
+```clojure
+(require '[clj-iso3166.former-country :as fc])
+
+(fc/name->former-country "Czechoslovakia")
+;;=> {:name "Czechoslovakia",
+;;    :alpha4 "CSHH",
+;;    :former-code {:numeric 200, :alpha3 "CSK", :alpha2 "CS"},
+;;    :latter-codes [{:numeric 203, :alpha3 "CZE", :alpha2 "CZ"}
+;;                   {:numeric 703, :alpha3 "SVK", :alpha2 "SK"}]}
+
+(def yugoslavia (fc/alpha4->former-country "YUCS"))
+
+(fc/migrate-country yugoslavia)
+;;=> ({:name "Montenegro", :numeric 499, :alpha3 "MNE", :alpha2 "ME"}
+;;    {:name "Serbia", :numeric 688, :alpha3 "SRB", :alpha2 "RS"})
+```
+
 ### Spec
 
 ```clojure
@@ -62,6 +81,6 @@ c/countries
 
 ## License
 
-Copyright © 2019 Toshiki Takeuchi
+Copyright © 2019 [Toshiki Takeuchi](https://totakke.net/)
 
 Distributed under the MIT License.
