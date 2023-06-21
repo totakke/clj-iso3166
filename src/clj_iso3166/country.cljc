@@ -227,7 +227,7 @@
    {:name "Turkmenistan", :numeric 795, :alpha3 "TKM", :alpha2 "TM"}
    {:name "Tunisia", :numeric 788, :alpha3 "TUN", :alpha2 "TN"}
    {:name "Tonga", :numeric 776, :alpha3 "TON", :alpha2 "TO"}
-   {:name "Turkey", :numeric 792, :alpha3 "TUR", :alpha2 "TR"}
+   {:name "Türkiye", :numeric 792, :alpha3 "TUR", :alpha2 "TR"}
    {:name "Trinidad and Tobago", :numeric 780, :alpha3 "TTO", :alpha2 "TT"}
    {:name "Tuvalu", :numeric 798, :alpha3 "TUV", :alpha2 "TV"}
    {:name "Taiwan, Province of China", :numeric 158, :alpha3 "TWN", :alpha2 "TW"}
