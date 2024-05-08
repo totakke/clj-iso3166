@@ -1,4 +1,4 @@
-{:deps {org.clojure/clojure {:mvn/version "1.11.1"}
+{:deps {org.clojure/clojure {:mvn/version "1.11.3"}
         org.clojure/clojurescript {:mvn/version "1.11.60"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {io.github.cognitect-labs/test-runner
