@@ -6,17 +6,22 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Setup Java
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
-        distribution: 'adopt'
-        java-version: '17'
+        distribution: 'temurin'
+        java-version: '21'
+
     - name: Setup Clojure
-      uses: DeLaGuardo/setup-clojure@11.0
+      uses: DeLaGuardo/setup-clojure@12.5
       with:
-        cli: '1.11.1.1347'
+        cli: '1.11.3.1463'
+
     - name: Run tests
       run: clojure -X:test
+
     - name: Run cljs tests
       run: clojure -M:test-cljs
