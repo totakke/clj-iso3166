@@ -16,13 +16,13 @@ io.github.totakke/clj-iso3166 {:git/tag "v0.4.0" :git/sha "3877e13"}
 Clojure CLI/deps.edn (as Maven):
 
 ```clojure
-net.totakke/clj-iso3166 {:mvn/version "0.4.0"}
+net.totakke/clj-iso3166 {:mvn/version "1.0.0"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[net.totakke/clj-iso3166 "0.4.0"]
+[net.totakke/clj-iso3166 "1.0.0"]
 ```
 
 ## Usage
@@ -76,13 +76,17 @@ c/countries
 
 ```clojure
 (require '[clj-iso3166.country :as c]
-         '[clojure.spec.alpha :as s])
+         '[clojure.spec.alpha :as s]
+         '[clojure.spec.gen.alpha :as gen])
 
 (s/valid? ::c/alpha2 "JP")
 ;;=> true
 
 (s/explain ::c/alpha3 "IT")
 ;; "IT" - failed: (re-matches #"[A-Z]{3}" %) spec: :clj-iso3166.country/alpha3
+
+(gen/generate (s/gen ::c/country))
+;;=> {:name "Albania", :numeric 8, :alpha3 "ALB", :alpha2 "AL"}
 ```
 
 ## License
