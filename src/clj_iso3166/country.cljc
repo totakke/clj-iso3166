@@ -1,5 +1,6 @@
 (ns clj-iso3166.country
   (:require [clojure.spec.alpha :as s]
+            [clojure.spec.gen.alpha :as gen]
             [clojure.string :as string]))
 
 (def countries
@@ -253,21 +254,31 @@
    {:name "Zambia", :numeric 894, :alpha3 "ZMB", :alpha2 "ZM"}
    {:name "Zimbabwe", :numeric 716, :alpha3 "ZWE", :alpha2 "ZW"}])
 
-(s/def ::name (s/and string? (set (map :name countries))))
+(s/def ::name
+  (s/with-gen (s/and string? (set (map :name countries)))
+    #(gen/elements (map :name countries))))
 
-(s/def ::numeric (s/and integer?
-                        #(<= 0 % 999)
-                        (set (map :numeric countries))))
+(s/def ::numeric
+  (s/with-gen (s/and integer?
+                     #(<= 0 % 999)
+                     (set (map :numeric countries)))
+    #(gen/elements (map :numeric countries))))
 
-(s/def ::alpha3 (s/and string?
-                       #(re-matches #"[A-Z]{3}" %)
-                       (set (map :alpha3 countries))))
+(s/def ::alpha3
+  (s/with-gen (s/and string?
+                     #(re-matches #"[A-Z]{3}" %)
+                     (set (map :alpha3 countries)))
+    #(gen/elements (map :alpha3 countries))))
 
-(s/def ::alpha2 (s/and string?
-                       #(re-matches #"[A-Z]{2}" %)
-                       (set (map :alpha2 countries))))
+(s/def ::alpha2
+  (s/with-gen (s/and string?
+                     #(re-matches #"[A-Z]{2}" %)
+                     (set (map :alpha2 countries)))
+    #(gen/elements (map :alpha2 countries))))
 
-(s/def ::country (s/keys :req-un [::name ::numeric ::alpha3 ::alpha2]))
+(s/def ::country
+  (s/keys :req-un [::name ::numeric ::alpha3 ::alpha2]
+          :gen #(gen/elements countries)))
 
 (def ^:private name-map
   (->> countries

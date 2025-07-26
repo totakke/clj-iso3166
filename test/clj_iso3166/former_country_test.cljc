@@ -2,7 +2,9 @@
   (:require [clj-iso3166.country :as c]
             [clj-iso3166.former-country :as fc]
             [clojure.spec.alpha :as s]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is]]
+            [clojure.test.check :as tc]
+            [clojure.test.check.properties :as prop]))
 
 (deftest former-countries-test
   (is (s/valid? (s/coll-of ::fc/former-country :kind vector? :distinct true)
@@ -19,6 +21,29 @@
   (is (s/valid? ::fc/former-country (fc/alpha4->former-country "cshh")))
   (is (nil? (fc/alpha4->former-country "CS")))
   (is (nil? (fc/alpha4->former-country nil))))
+
+(deftest generator-test
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::fc/former-country)]
+                                 ((set fc/former-countries) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::fc/name)]
+                                 ((set (map :name fc/former-countries)) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::fc/alpha4)]
+                                 ((set (map :alpha4 fc/former-countries)) x)))))
+
+  (is (:result
+       (tc/quick-check 100
+                       (prop/for-all [x (s/gen ::fc/former-code)]
+                         ((set (map :former-code fc/former-countries)) x)))))
+
+  (is (:result
+       (tc/quick-check 100
+                       (prop/for-all [x (s/gen ::fc/latter-codes)]
+                         ((set (map :latter-codes fc/former-countries)) x))))))
 
 (deftest migrate-country-test
   (doseq [former-country fc/former-countries]

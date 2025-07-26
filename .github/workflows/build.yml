@@ -21,7 +21,7 @@ jobs:
         cli: '1.12.1.1550'
 
     - name: Run tests
-      run: clojure -X:test
+      run: clojure -X:dev:test
 
     - name: Run cljs tests
-      run: clojure -M:test-cljs
+      run: clojure -M:dev:test-cljs

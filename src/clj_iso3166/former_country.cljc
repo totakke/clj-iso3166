@@ -2,6 +2,7 @@
   "The formerly used country codes defined in ISO 3166-3."
   (:require [clj-iso3166.country :as c]
             [clojure.spec.alpha :as s]
+            [clojure.spec.gen.alpha :as gen]
             [clojure.string :as string]))
 
 (def former-countries
@@ -121,11 +122,15 @@
     :former-code {:numeric 180, :alpha3 "ZAR", :alpha2 "ZR"}
     :latter-codes [{:numeric 180, :alpha3 "COD", :alpha2 "CD"}]}])
 
-(s/def ::name (s/and string? (set (map :name former-countries))))
+(s/def ::name
+  (s/with-gen (s/and string? (set (map :name former-countries)))
+    #(gen/elements (map :name former-countries))))
 
-(s/def ::alpha4 (s/and string?
-                       #(re-matches #"[A-Z]{4}" %)
-                       (set (map :alpha4 former-countries))))
+(s/def ::alpha4
+  (s/with-gen (s/and string?
+                     #(re-matches #"[A-Z]{4}" %)
+                     (set (map :alpha4 former-countries)))
+    #(gen/elements (map :alpha4 former-countries))))
 
 (s/def :clj-iso3166.former-country.former-code/numeric
   (s/and integer?
@@ -145,7 +150,8 @@
 (s/def ::former-code
   (s/keys :req-un [:clj-iso3166.former-country.former-code/numeric
                    :clj-iso3166.former-country.former-code/alpha3
-                   :clj-iso3166.former-country.former-code/alpha2]))
+                   :clj-iso3166.former-country.former-code/alpha2]
+          :gen #(gen/elements (map :former-code former-countries))))
 
 (s/def :clj-iso3166.former-country.latter-codes/numeric
   (s/and integer?
@@ -169,16 +175,21 @@
               set)))
 
 (s/def ::latter-codes
-  (s/coll-of (s/keys :req-un [:clj-iso3166.former-country.latter-codes/numeric
-                              :clj-iso3166.former-country.latter-codes/alpha3
-                              :clj-iso3166.former-country.latter-codes/alpha2])
-             :kind vector?
-             :distinct true))
+  (s/with-gen (s/coll-of
+               (s/keys
+                :req-un [:clj-iso3166.former-country.latter-codes/numeric
+                         :clj-iso3166.former-country.latter-codes/alpha3
+                         :clj-iso3166.former-country.latter-codes/alpha2])
+               :kind vector?
+               :distinct true)
+    #(gen/elements (map :latter-codes former-countries))))
 
-(s/def ::former-country (s/keys :req-un [::name
-                                         ::alpha4
-                                         ::former-code
-                                         ::latter-codes]))
+(s/def ::former-country
+  (s/keys :req-un [::name
+                   ::alpha4
+                   ::former-code
+                   ::latter-codes]
+          :gen #(gen/elements former-countries)))
 
 (def ^:private name-map
   (->> former-countries

@@ -1,7 +1,9 @@
 (ns clj-iso3166.country-test
   (:require [clj-iso3166.country :as c]
             [clojure.spec.alpha :as s]
-            [clojure.test :refer [deftest is]]))
+            [clojure.test :refer [deftest is]]
+            [clojure.test.check :as tc]
+            [clojure.test.check.properties :as prop]))
 
 (deftest countries-test
   (is (s/valid? (s/coll-of ::c/country :kind vector? :distinct true)
@@ -29,3 +31,24 @@
   (is (s/valid? ::c/country (c/alpha2->country "jp")))
   (is (nil? (c/alpha2->country "JPN")))
   (is (nil? (c/alpha2->country nil))))
+
+(deftest generator-test
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::c/country)]
+                                 ((set c/countries) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::c/name)]
+                                 ((set (map :name c/countries)) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::c/numeric)]
+                                 ((set (map :numeric c/countries)) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::c/alpha3)]
+                                 ((set (map :alpha3 c/countries)) x)))))
+
+  (is (:result (tc/quick-check 100
+                               (prop/for-all [x (s/gen ::c/alpha2)]
+                                 ((set (map :alpha2 c/countries)) x))))))
