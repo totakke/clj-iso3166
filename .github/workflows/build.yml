@@ -16,9 +16,9 @@ jobs:
         java-version: '21'
 
     - name: Setup Clojure
-      uses: DeLaGuardo/setup-clojure@12.5
+      uses: DeLaGuardo/setup-clojure@13.4
       with:
-        cli: '1.11.3.1463'
+        cli: '1.12.1.1550'
 
     - name: Run tests
       run: clojure -X:test
