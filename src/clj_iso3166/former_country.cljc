@@ -230,7 +230,7 @@
 (defn migrate-country
   "Migrates a former country to current countries."
   [former-country]
-  {:pre [(s/valid? ::former-country former-country)]}
+  (s/assert ::former-country former-country)
   (flatten
    (for [latter-code (:latter-codes former-country)]
      (if-let [latter-country (former-code-map latter-code)]

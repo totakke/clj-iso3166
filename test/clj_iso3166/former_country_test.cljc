@@ -53,5 +53,4 @@
            {:name "Slovakia", :numeric 703, :alpha3 "SVK", :alpha2 "SK"})))
   (is (= (fc/migrate-country (fc/alpha4->former-country "YUCS"))
          '({:name "Montenegro", :numeric 499, :alpha3 "MNE", :alpha2 "ME"}
-           {:name "Serbia", :numeric 688, :alpha3 "SRB", :alpha2 "RS"})))
-  (is (thrown? #?(:clj Throwable, :cljs js/Error) (fc/migrate-country nil))))
+           {:name "Serbia", :numeric 688, :alpha3 "SRB", :alpha2 "RS"}))))
