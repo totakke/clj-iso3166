@@ -1,5 +1,5 @@
-{:deps {org.clojure/clojure {:mvn/version "1.11.3"}
-        org.clojure/clojurescript {:mvn/version "1.11.132"}}
+{:deps {org.clojure/clojure {:mvn/version "1.12.1"}
+        org.clojure/clojurescript {:mvn/version "1.12.42"}}
 
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {io.github.cognitect-labs/test-runner
