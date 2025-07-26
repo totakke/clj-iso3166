@@ -10,7 +10,7 @@ ISO 3166 country definitions for Clojure(Script)
 Clojure CLI/deps.edn (as Git):
 
 ```clojure
-io.github.totakke/clj-iso3166 {:git/tag "v0.4.0" :git/sha "3877e13"}
+io.github.totakke/clj-iso3166 {:git/tag "v1.0.0" :git/sha "e6538f2"}
 ```
 
 Clojure CLI/deps.edn (as Maven):
